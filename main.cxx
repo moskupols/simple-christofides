@@ -37,20 +37,14 @@ vector<int> findEuclideanTspTour(const EuclideanGraph &g, int start = 0)
         }
 
         {
-            std::unordered_set<int> mstEdges;
-            for (Edge e : eulerian.edgeList)
-                mstEdges.insert(e.id);
-
-            Graph mstComplement(g.n);
-            for (Edge e : g.edgeList)
-                if (!mstEdges.count(e.id) && evenDegree.count(e.from) && evenDegree.count(e.to))
-                    mstComplement.addEdge(e);
-
-            vector<Edge> matching = mstComplement.findOptimalMatchingApprox();
+            vector<Edge> matching = g.findOptimalMatchingApprox(evenDegree);
             assert(matching.size() * 2 + evenDegree.size() == (size_t)g.n);
 
             for (Edge e : matching)
+            {
+                e.id += g.n * g.n;
                 eulerian.addEdge(e);
+            }
         }
     }
 
