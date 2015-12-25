@@ -87,8 +87,42 @@ struct Graph
         return ret;
     }
 
+    vector<int> buildEulerianTourWithShortcuts(int start = 0)
+    {
+        vector<int> tour = buildEulerianTour(start);
+        vector<int> ret;
+        unordered_set<int> met;
+        for (int x : tour)
+            if (met.insert(x).second)
+                ret.push_back(x);
+        return ret;
+    }
+
+    vector<int> buildEulerianTour(int start = 0)
+    {
+        vector<int> ret;
+        vector<vector<Edge>> adjList = getAdjList();
+        unordered_set<int> edgeDeleted;
+        buildEulerianTourRecursive(start, ret, adjList, edgeDeleted);
+        return ret;
+    }
+
     int n;
     vector<Edge> edgeList;
+
+private:
+    static void buildEulerianTourRecursive(int v, vector<int> &ret,
+            vector<vector<Edge>> &adjList, unordered_set<int> &edgeDeleted)
+    {
+        while (!adjList[v].empty())
+        {
+            Edge e = adjList[v].back();
+            adjList[v].pop_back();
+            if (edgeDeleted.insert(e.id).second)
+                buildEulerianTourRecursive(e.to, ret, adjList, edgeDeleted);
+        }
+        ret.push_back(v);
+    }
 };
 
 struct EuclideanGraph : public Graph
