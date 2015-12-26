@@ -133,6 +133,12 @@ vector<Edge> EuclideanGraph::findOptimalMatchingApprox(
         unordered_set<int> ignoredVertices) const
 {
     vector<Edge> sortedEdges = edgeList;
+    sortedEdges.erase(remove_if(sortedEdges.begin(), sortedEdges.end(),
+            [&ignoredVertices](Edge e)
+            {
+                return ignoredVertices.count(e.to) | ignoredVertices.count(e.from);
+            }),
+        sortedEdges.end());
     sort(sortedEdges.begin(), sortedEdges.end(),
             [](Edge a, Edge b) {return a.w < b.w; });
 
@@ -148,9 +154,7 @@ vector<Edge> EuclideanGraph::findOptimalMatchingApprox(
         for (Edge e : sortedEdges)
         {
             int a = dsu.getRepresentative(e.from), b = dsu.getRepresentative(e.to);
-            if (a == b
-                    || ignoredVertices.count(a) || ignoredVertices.count(b)
-                    || (dsu.getSetSize(a) & dsu.getSetSize(b) & 1) == 0)
+            if (a == b || (dsu.getSetSize(a) & dsu.getSetSize(b) & 1) == 0)
                 continue;
 
             relax(nearest, a, make_pair(e.w, b));
