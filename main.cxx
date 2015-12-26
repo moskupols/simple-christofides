@@ -4,9 +4,10 @@
 
 using namespace std;
 
-vector<int> findEuclideanTspTour(const EuclideanGraph &g, int start = 0)
+vector<int> findEuclideanTspTour(const EuclideanGraph &g)
 {
     Graph eulerian(g.n, g.findMst());
+    // eulerian.addEdge({-1, s, t, 0}); // fixed endpoints case
     {
         std::unordered_set<int> evenDegree;
         {
@@ -28,7 +29,7 @@ vector<int> findEuclideanTspTour(const EuclideanGraph &g, int start = 0)
         }
     }
 
-    return eulerian.buildEulerianTourWithShortcuts(start);
+    return eulerian.buildEulerianTourWithShortcuts();
 }
 
 double tourLength(const vector<int> &p, const EuclideanGraph &g)
