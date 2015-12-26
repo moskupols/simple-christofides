@@ -20,6 +20,7 @@ public:
     // where \alpha is the inverse Ackermann function (practically small constant)
 
     elem_t getRepresentative(elem_t v) const;  // amortized O(\alpha(size))
+    size_t getSetSize(elem_t v) const;
 
     void reset();
 

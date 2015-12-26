@@ -39,13 +39,13 @@ struct Graph
 
     std::vector<Edge> findMst() const;
 
-    std::vector<Edge> findOptimalMatchingApprox(
-            std::unordered_set<int> ignoredVertices = {}) const;
 
     std::vector<std::vector<Edge>> getAdjList() const;
 
-    std::vector<int> buildEulerianTourWithShortcuts(int start = 0);
-    std::vector<int> buildEulerianTour(int start = 0);
+    std::vector<int> buildEulerianTourWithShortcuts(
+            int start = 0, bool doubleEdges = false) const;
+    std::vector<int> buildEulerianTour(
+            int start = 0, bool doubleEdges = false) const;
 
     int n;
     std::vector<Edge> edgeList;
@@ -58,6 +58,9 @@ struct EuclideanGraph : public Graph
     explicit EuclideanGraph(std::vector<Point> p);
 
     Edge getEdge(int a, int b) const;
+
+    std::vector<Edge> findOptimalMatchingApprox(
+            std::unordered_set<int> ignoredVertices = {}) const;
 
     std::vector<Point> p;
 };
