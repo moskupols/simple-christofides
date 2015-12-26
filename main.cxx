@@ -42,6 +42,8 @@ double tourLength(const vector<int> &p, const EuclideanGraph &g)
 
 int main()
 {
+    double begin = double(clock()) / CLOCKS_PER_SEC;
+
     int n;
     double optimal;
     cin >> n >> optimal;
@@ -52,16 +54,23 @@ int main()
     EuclideanGraph g(p);
     vector<int> tour = findEuclideanTspTour(g);
 
-    if (tour.size() < 50)
-    {
-        for (int x : tour)
-            cout << x << ' ';
-        cout << endl;
-    }
+    // if (tour.size() < 50)
+    // {
+        // for (int x : tour)
+            // cout << x << ' ';
+        // cout << endl;
+    // }
 
     double len = tourLength(tour, g);
-    cout << "Tour length: " << len << endl;
-    cout << "Best known:  " << optimal << endl;
-    cout << "ratio:       " << len / optimal << endl;
+
+    double end = double(clock()) / CLOCKS_PER_SEC;
+
+    printf("N: %5d | "
+           "Tour length: %10.1lf | "
+           "Best known: %10.1lf | "
+           "Ratio: %5.3lf | "
+           "Time consumed: %7.3lf sec"
+           "\n",
+           n, len, optimal, len / optimal, end - begin);
 }
 

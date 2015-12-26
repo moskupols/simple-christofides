@@ -12,5 +12,5 @@ main: $(SOURCES) $(HEADERS)
 	$(CXX) $(CXX_FLAGS) -o $@ $(SOURCES)
 
 %.out: %.in main
-	./main <$< >$@
+	./main <$< | tee $@
 
