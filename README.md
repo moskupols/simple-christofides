@@ -9,6 +9,11 @@ rather complex.
 But we can use some heuristic for that subproblem too! This repo was created for
 a quick benchmark of two simple greedy approaches.
 
+Here quick means also
+that I did not take time to think about architecture and sometimes even about
+optimization (for example, I used unordered sets instead of sorted vectors
+where the latter was possibly better). Think about it as about a prototype.
+
 The 'straightforward' variant
 -----------------------------
 
