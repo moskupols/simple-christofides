@@ -151,7 +151,7 @@ vector<Edge> EuclideanGraph::findOptimalMatchingApprox(
         needed = false;
 
         unordered_map<int, pair<double, int>> nearest;
-        for (Edge e : sortedEdges)
+        for (auto&& e : sortedEdges)
         {
             int a = dsu.getRepresentative(e.from), b = dsu.getRepresentative(e.to);
             if (a == b || (dsu.getSetSize(a) & dsu.getSetSize(b) & 1) == 0)
@@ -171,7 +171,7 @@ vector<Edge> EuclideanGraph::findOptimalMatchingApprox(
     }
 
     vector<vector<Edge>> trees(n);
-    for (Edge e : markedEdges)
+    for (auto&& e : markedEdges)
         trees[dsu.getRepresentative(e.from)].push_back(e);
 
     vector<Edge> ret;
