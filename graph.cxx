@@ -9,13 +9,13 @@ vector<Edge> Graph::findMst() const
 {
     vector<Edge> sortedEdges = edgeList;
     sort(sortedEdges.begin(), sortedEdges.end(),
-            [](Edge a, Edge b) {return a.w < b.w; });
+            [](const Edge &a, const Edge &b) {return a.w < b.w; });
 
     vector<Edge> ret;
     ret.reserve(n-1);
 
     DisjointSetUnion dsu(n);
-    for (Edge e : sortedEdges)
+    for (auto&& e : sortedEdges)
         if (dsu.join(e.from, e.to))
             ret.push_back(e);
 
@@ -25,7 +25,7 @@ vector<Edge> Graph::findMst() const
 vector<vector<Edge>> Graph::getAdjList() const
 {
     vector<vector<Edge>> ret(n);
-    for (Edge e : edgeList)
+    for (auto&& e : edgeList)
     {
         ret[e.from].push_back(e);
         ret[e.to].push_back(Edge{e.id, e.to, e.from, e.w});

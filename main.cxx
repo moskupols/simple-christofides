@@ -21,7 +21,7 @@ vector<int> findEuclideanTspTour(const EuclideanGraph &g)
             vector<Edge> matching = g.findOptimalMatchingApprox(evenDegree);
             assert(matching.size() * 2 + evenDegree.size() == (size_t)g.n);
 
-            for (Edge e : matching)
+            for (auto&& e : matching)
             {
                 e.id += g.n * g.n;
                 eulerian.addEdge(e);
