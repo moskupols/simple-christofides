@@ -1,5 +1,6 @@
-CXX = clang++
-CXX_FLAGS = -Wall -Wextra -std=c++14 -O3 # -fsanitize=address -fsanitize=undefined
+CXX ?= clang++
+CXXFLAGS ?= -O3
+CXXFLAGS += -Wall -Wextra -std=c++14
 
 SOURCES:=$(wildcard *.cxx)
 HEADERS:=$(wildcard *.hxx)
@@ -9,7 +10,7 @@ OUTPUTS:=$(patsubst tests/%.in,tests/%.out,$(TESTS))
 tests: $(OUTPUTS)
 
 main: $(SOURCES) $(HEADERS)
-	$(CXX) $(CXX_FLAGS) -o $@ $(SOURCES)
+	$(CXX) $(CXXFLAGS) -o $@ $(SOURCES)
 
 %.out: %.in main
 	./main <$< | tee $@

@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <cassert>
+#include <cstdio>
+#include <iostream>
 
 #include "graph.hxx"
 
